@@ -3,9 +3,10 @@ import modules.*;
 import personel.Admin;
 import adapter.*;
 import java.io.IOException;
-
 import exception.*;
-import util.FileIO;
+
+
+
 
 public class Driver {
 
@@ -18,7 +19,7 @@ public class Driver {
 			
 			// 1st parking garage
 			Address address1 = new Address("8474 Nicolls St.", "Huntsville", "AL", "35803");
-			buildGarage.BuildGarage(address1, 5, 5);
+			buildGarage.BuildGarage(address1, 1, 1);
 
 			
 			//  2nd parking garage
@@ -44,46 +45,51 @@ public class Driver {
 			
 			
 			
-//			buildGarage.addParkingLevel(admin1, address1, 5);
-//			buildGarage.addParkingLevel(admin2, address1, 5);
-			
+			buildGarage.addParkingLevel(admin1, address1, 5);
+			try {
+				buildGarage.addParkingLevel(admin2, address1, 5);
+			} catch (ParkingExceptions pe) {
+				pe.printmyproblem();
+			}
 			buildGarage.addParkingSpace(admin1, address1, 5, 3);
 			System.out.println("\tadded 3 parking spaces to level 5!!!\n\n");
-//			buildGarage.addParkingSpace(admin2, address2, 5, 3);
-			// test levelOut of Bounds
-			buildGarage.addParkingSpace(admin1, address1, 6, 3);
 			
-			System.out.println("\tReached end of try-block!!!");
+			try {
+				buildGarage.addParkingSpace(admin2, address2, 5, 3);
+			} catch (ParkingExceptions pe) {
+				pe.printmyproblem();
+			}
+			try {
+				// test levelOut of Bounds
+				buildGarage.addParkingSpace(admin1, address1, 7, 3);
+			} catch (ParkingExceptions pe) {
+				pe.printmyproblem();
+			}
+			
+			
+			
+			
+			// log in
+			if (buildGarage.validateUserCredentials(admin1.getAdminID(), "admin123"))
+				System.out.println("admin1 logged in");
+			else
+				System.out.println("admin1 not logged in");
+			
+			
+			if (buildGarage.validateUserCredentials(admin2.getAdminID(), "admin123"))
+				System.out.println("admin2 logged in");
+			else
+				System.out.println("admin2 not logged in");
+			
+			
+			
+			
 			
 		} catch(ParkingExceptions e) {
 			System.out.println(e.writemyproblem());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	ParkingGarage pg1 = new ParkingGarage(10, 10);
-//	pg1.setAddress(new Address("streetexample", "cityexample", "stateexample", "zipexample"));
-//
-//	FileIO fileObj = new FileIO();
-//	FileIO.writeGarageObject(pg1);
-//	
-//	
-//	// display serialized objects location - with file in system
-//	System.out.println(FileIO.readGarageObject("log/cityexamplezipexample_parkingGarage.ser").getAddress());
-//	
-//	// display serialized objects location - with file NOT in system
-//	System.out.println(FileIO.readGarageObject("log/cityExzipexample_parkingGarage.ser").getAddress());
-
 }

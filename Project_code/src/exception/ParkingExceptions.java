@@ -135,6 +135,8 @@ public class ParkingExceptions extends Exception{
 			case 6:
 				setErrormsg("Given level number not within garage boundaries.");
 				break;
+			case 7:
+				
 				
 		}
 	}

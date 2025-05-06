@@ -45,9 +45,10 @@ public class ExitKiosk implements Serializable {
 	public double scanTicket_toExit(Ticket ticket) {
 		
     	if (ticket != null && ticket.getParkingTicketStatus() == TicketStatus.ACTIVE) {
-    		// log
+    	
     		FileIO.log("Ticket Scanned!");
     		System.out.println("Ticket scanned!");
+    		parkingGarage.exitParkingGarage();
     		return ticket.calculateFee();
     	} else {
     		

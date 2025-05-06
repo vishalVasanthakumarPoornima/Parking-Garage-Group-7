@@ -1,3 +1,4 @@
+
 package scale;
 
 import modules.Ticket;
@@ -55,9 +56,12 @@ public class EntryKioskClientGUI {
             // request to client handler for the EntryKiosk operations
             out.writeObject("ENTRY");
             
-            // might not actually use 
+        
             this.ticket = (Ticket) in.readObject();
-            outputArea.setText("\tTicket Issued:\nTicket ID: " + ticket.getTicketID() + "\nEntry Time: " + ticket.getEntryTime());
+            if (ticket == null)
+            	outputArea.setText("Ticket is not issued! Garage reached maximum capacity.");
+            else
+            	outputArea.setText("\tTicket Issued:\nTicket ID: " + ticket.getTicketID() + "\nEntry Time: " + ticket.getEntryTime());
         } 
 		catch (IOException e){
 			e.printStackTrace();

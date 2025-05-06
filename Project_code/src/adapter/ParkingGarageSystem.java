@@ -88,7 +88,7 @@ public abstract class ParkingGarageSystem {
 		if (FixAdapter.unAuthorized(access_employee_control, admin))
 			throw new ParkingExceptions(5);
 		
-//		parkingGarage = getGarage(location);
+		parkingGarage = getGarage(location);
 		if (FixAdapter.isLevelOutOfBounds(levelNumber, ( parkingGarage = getGarage(location) )))
 			throw new ParkingExceptions(6);
 		
@@ -126,7 +126,7 @@ public abstract class ParkingGarageSystem {
 		
 	}
 	
-    public Ticket issueTicket() {
+    public Ticket issueTicket() throws ParkingExceptions {
 
     	
         Ticket ticket = parkingGarage.getEntryKiosk().printTicket();
@@ -163,5 +163,10 @@ public abstract class ParkingGarageSystem {
 		
 		authentication_manager.registerUser(admin);
 		access_employee_control.registerAdmin(admin);
+	}
+	
+	public boolean validateUserCredentials(String username, String password) {
+		User user = authentication_manager.login(username, password);
+		return (user != null);
 	}
 }

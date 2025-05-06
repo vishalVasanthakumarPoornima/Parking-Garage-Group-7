@@ -93,17 +93,21 @@ class ClientHandler implements Runnable {
                 // In response to a request to enter from entrykiosk
                 // create a new ticket for client and use parking garage's entry kiosk
             	System.out.println("ClientHandlers run() if ENTRY");
-            	
-            	Ticket ticket = parkingGarage.getEntryKiosk().printTicket();
+            	try {
+            		Ticket ticket = parkingGarage.getEntryKiosk().printTicket();
+            		
+                    // Save all active tickets in hashmap
+                    tickets.put(Integer.valueOf(ticket.getTicketID()), ticket);
+                    
+                    out.writeObject(ticket);
+                    FileIO.log("ENTRY: Ticket " + ticket.getTicketID() + " issued at " + ticket.getEntryTime());
+                    
+            	} catch(ParkingExceptions e) {
+            		e.printmyproblem();
+            		out.writeObject(null);
+            	}
        
-                // Save all active tickets in hashmap
-                tickets.put(Integer.valueOf(ticket.getTicketID()), ticket);
 
-//                for (Integer key : tickets.keySet()) 
-//                    System.out.println(String.format("Key: %2d, Ticket: %s", key, tickets.get(key)));
-                
-                out.writeObject(ticket);
-                FileIO.log("ENTRY: Ticket " + ticket.getTicketID() + " issued at " + ticket.getEntryTime());
             } 
             else if (request.equals("EXIT")) {
                 // In response to a request to exit from exitKiosk
@@ -122,6 +126,7 @@ class ClientHandler implements Runnable {
                 // match with tickets in system
                 if (tickets.containsKey(ticketId)) {
                 	ticket_to_exit = tickets.remove(ticketId);
+                	
                 }
                 
                 if (!FixScale.isValidTicket(ticket_to_exit)) {

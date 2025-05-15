@@ -322,3 +322,39 @@
 	Total time:  0 minutes
 	Parking Rate: $3 per hour
 	Parking Fee: 0.00
+2025-05-05T14:13:14.018675571 - Parking Garage Server started on port: 12345
+2025-05-05T14:14:26.993455048 - ENTRY: Ticket 1 issued at 14:14:26.984302775
+2025-05-05T14:14:27.427854537 - ENTRY: Ticket 2 issued at 14:14:27.425222038
+2025-05-05T14:14:27.579043135 - ENTRY: Ticket 3 issued at 14:14:27.575907888
+2025-05-05T14:14:27.759906758 - ENTRY: Ticket 4 issued at 14:14:27.756750075
+2025-05-05T14:14:27.919623980 - ENTRY: Ticket 5 issued at 14:14:27.917557907
+2025-05-05T14:14:28.057069778 - ENTRY: Ticket 6 issued at 14:14:28.055347800
+2025-05-05T14:14:28.220422356 - ENTRY: Ticket 7 issued at 14:14:28.218009620
+2025-05-05T14:14:28.340665756 - ENTRY: Ticket 8 issued at 14:14:28.338364331
+2025-05-05T14:14:28.585905605 - ENTRY: Ticket 9 issued at 14:14:28.583755455
+2025-05-05T14:14:28.700997610 - ENTRY: Ticket 10 issued at 14:14:28.698405711
+2025-05-05T14:14:51.719396173 - ENTRY: Ticket 11 issued at 14:14:51.718473581
+2025-05-05T14:14:52.044435741 - ENTRY: Ticket 12 issued at 14:14:52.041407281
+2025-05-05T14:14:52.223362410 - ENTRY: Ticket 13 issued at 14:14:52.220798436
+2025-05-05T14:14:52.451908734 - ENTRY: Ticket 14 issued at 14:14:52.449462291
+2025-05-05T14:14:53.688416924 - ENTRY: Ticket 15 issued at 14:14:53.686749
+2025-05-05T14:15:32.375134075 - Ticket Scanned!
+2025-05-05T14:15:32.381536386 - EXIT: Ticket 5 exited. 
+	Total time:  1 minutes
+	Parking Rate: $3 per hour
+	Parking Fee: -0.05
+2025-05-05T14:16:39.375245611 - Ticket Scanned!
+2025-05-05T14:16:39.378173235 - EXIT: Ticket 6 exited. 
+	Total time:  2 minutes
+	Parking Rate: $3 per hour
+	Parking Fee: -0.10
+2025-05-05T14:17:06.887194701 - Ticket Scanned!
+2025-05-05T14:17:06.890683443 - EXIT: Ticket 7 exited. 
+	Total time:  2 minutes
+	Parking Rate: $3 per hour
+	Parking Fee: -0.10
+2025-05-05T14:17:54.903788124 - Ticket Scanned!
+2025-05-05T14:17:54.906978920 - EXIT: Ticket 8 exited. 
+	Total time:  3 minutes
+	Parking Rate: $3 per hour
+	Parking Fee: -0.15

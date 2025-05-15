@@ -1,9 +1,7 @@
 package scale;
 
 import javax.swing.*;
-
 import modules.Payment;
-
 import java.io.*;
 import java.net.*;
 
@@ -54,7 +52,7 @@ public class ExitKioskClientGUI {
     private void requestExit() {
     	
         try {
-        	
+      
         	socket = new Socket("localhost", 12345);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
@@ -62,34 +60,22 @@ public class ExitKioskClientGUI {
             
             // request to client handler for the ExitKiosk operations
             out.writeObject("EXIT");
-            
-            
             out.writeInt(Integer.parseInt(ticketField.getText()));
             out.flush();
-            
             
             double balanceDue = (double) in.readDouble();
             Payment payment = (Payment) in.readObject();
             
-
             String response = (String) in.readObject();
             outputArea.setText(response);
-            
-            
-            
-            
-            
             
             
             // start a new Payment frame
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-//       
                 	new PaymentFrame(balanceDue, payment);
                 }
             });
-            
-            
 
 
         } 

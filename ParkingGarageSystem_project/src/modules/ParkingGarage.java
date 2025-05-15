@@ -62,7 +62,11 @@ public class ParkingGarage implements Serializable{
 	public ExitKiosk getExitKiosk() {
 		return exitKiosk;
 	}
-	
+	public int getNumAvailable() {
+		return numAvailable;
+	}
+
+
 	
 	// Setters
 	public void setAddress(Address address) {
@@ -85,15 +89,20 @@ public class ParkingGarage implements Serializable{
 	public void setExitKiosk(ExitKiosk exitKiosk) {
 		this.exitKiosk = exitKiosk;
 	}
+	public void setNumAvailable(int numAvailable) {
+		this.numAvailable = numAvailable;
+	}
 	
 	
 	
 	public void addParkingLevel(int numSpacesPerLevel) {
-		// update count of levels variable
-		// 
+		//  addParkingLevel: adds a new element in the 
+		// Parking Level Array List and updates
+		// the appropriate variables
+		
 		int newLevelNum = getNumLevels() + 1;
 		try {
-			//
+			
 			setNumLevels(newLevelNum);
 			parkingLevels.add(new ParkingLevel(newLevelNum, numSpacesPerLevel));
 		} catch (ParkingExceptions e) {
@@ -104,7 +113,8 @@ public class ParkingGarage implements Serializable{
 	}
 	
 	public synchronized void addSpaces_toLevel(int parkingLevel, int spaces_to_add) {
-	
+		// addSpaces_toLevel: locates the given ParkingLevel by 
+		//                    the level number and adds on to parking spaces
 		ParkingLevel temp = null;
 		for (ParkingLevel level : parkingLevels) 
 			if ( (temp=level).getLevelNumber()  ==  parkingLevel ) 
@@ -116,32 +126,26 @@ public class ParkingGarage implements Serializable{
 	
 	
 	public Ticket enterParkingGarage() throws ParkingExceptions {
-		
-		// return a new ticket and utilize
-		// entryKiosk
-		// numAvailable
+		// enterParkingGarage: return a new ticket and utilize entryKiosk
 		
 		// if parking is full
 		if (!FixModel.isParkingAvailable(getNumAvailable()))
 			throw new ParkingExceptions(4);
 		
-		// return 
+		// open gate when spaces are available
+		entryKiosk.openGate();
+
 		// find first available spot
 		ParkingSpace space = null;
 		for (ParkingLevel level : parkingLevels)
-			if ((space=level.occupyAvailableSpace()) != null) {
-				// change state of hardware mechanism within floor
+			if (level.freeOccupiedSpace()) {
 				level.getFloorDisplayBoard().occupySpace();
 				break;
 			}
 		
-		// update numAvailability
-		decrementAvailablity();
-		
 		// at this point space holds the parkingSpace 
 		// that changed its state
-		// Note: could be useful in future
-		return getEntryKiosk().printTicket();
+		return entryKiosk.printTicket();
 	}
 	
 	
@@ -151,10 +155,9 @@ public class ParkingGarage implements Serializable{
 		// go through all levels to find an occupied space 
 		// free up space and update capacity variables
 		for (ParkingLevel level : parkingLevels) 
-			if (level.freeOccupiedSpace()) {
-				incrementAvailability();
+			if (level.freeOccupiedSpace()) 
 				return true;
-			}
+			
 		return false;
 	}
 	
@@ -173,7 +176,6 @@ public class ParkingGarage implements Serializable{
 		entranceBoard.validateCapacity(getNumAvailable());
 	}
 	
-	
 
 	@Override
 	public String toString() {
@@ -182,21 +184,5 @@ public class ParkingGarage implements Serializable{
 			ls += level;
 		return ls;	
 	}
-
-
-
-	public int getNumAvailable() {
-		return numAvailable;
-	}
-
-
-
-	public void setNumAvailable(int numAvailable) {
-		this.numAvailable = numAvailable;
-	}
-	
-
-
-
 
 }

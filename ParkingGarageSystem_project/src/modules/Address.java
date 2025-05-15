@@ -2,19 +2,32 @@ package modules;
 
 import java.io.Serializable;
 
+import exception.FixModel;
+import exception.ParkingExceptions;
+
 public class Address implements Serializable {
-	
+	/*
+	 * Address object -
+	 *    Contains the variables associated with a garage location
+	 *        Street
+	 *        City
+	 *        State 
+	 *        Zipcode
+	 */
 	private String street;
 	private String city;
 	private String state;
 	private String zipcode;
 	
-	public Address(String street, String city, String state, String zipcode) {
+	
+	// Constructor
+	public Address(String street, String city, String state, String zipcode) throws ParkingExceptions {
 	
 		this.street = street;
 		this.city = city;
-		this.state = state;
-		this.zipcode = zipcode;
+		setState(state);
+		setZipcode(zipcode);
+	
 	}
 
 	
@@ -40,13 +53,28 @@ public class Address implements Serializable {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public void setState(String state) {
+	public void setState(String state) throws ParkingExceptions {
+		
+		if (!FixModel.isValidStateCode(state))
+			throw new ParkingExceptions(8);
+		
 		this.state = state;
 	}
-	public void setZipcode(String zipcode) {
+	public void setZipcode(String zipcode) throws ParkingExceptions {
+		
+		if (!FixModel.isValidZipCode(zipcode))
+			throw new ParkingExceptions(7);
+		
+		try {
+			Integer.valueOf(zipcode);
+		} 
+		catch (NumberFormatException e) {
+			throw new ParkingExceptions("Zipcode must be in numbers");
+		} 
 		this.zipcode = zipcode;
 	}
 	
+	@Override
 	public String toString() {
 		return String.format("\n\tStreet: %s\n\tCity: %s\n\tState: %s\n\tZipcode: %s\n", 
 				getStreet(), getCity(), getState(), getZipcode());

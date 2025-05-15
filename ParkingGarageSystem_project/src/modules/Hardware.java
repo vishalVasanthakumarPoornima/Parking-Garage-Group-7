@@ -2,25 +2,48 @@ package modules;
 
 import java.time.LocalDateTime;
 
+/**
+ * The Hardware class models a physical device in the system, such as a gate, sensor, or terminal.
+ * It tracks the device's metadata, current status, criticality, and allows health checks and event logging.
+ */
 public class Hardware {
+    // Unique identifier for the hardware device
     private String deviceID;
+
+    // Type of device (e.g., gate, camera, sensor)
     private String type;
+
+    // Physical location of the device
     private String location;
+
+    // Current operational status (e.g., "active", "offline")
     private String status;
+
+    // Timestamp of the last health check or status update
     private LocalDateTime lastChecked;
+
+    // Indicates whether this hardware is critical to operations
     private boolean isCritical;
 
-    // Constructor
+    /**
+     * Constructor for initializing a Hardware object with required attributes.
+     *
+     * @param deviceID    Unique ID for the device
+     * @param type        Type/category of the device
+     * @param location    Physical location of the hardware
+     * @param isCritical  Flag indicating if the device is critical
+     */
     public Hardware(String deviceID, String type, String location, boolean isCritical) {
         this.deviceID = deviceID;
         this.type = type;
         this.location = location;
         this.isCritical = isCritical;
-        this.status = "active"; // default status
-        this.lastChecked = LocalDateTime.now(); // initialized as now
+        this.status = "active"; // Default status on creation
+        this.lastChecked = LocalDateTime.now(); // Timestamp set to current time
     }
 
-    // Getter methods
+    // Getter methods for all fields
+
     public String getDeviceID() {
         return deviceID;
     }
@@ -46,25 +69,50 @@ public class Hardware {
     }
 
     // Setter methods
+
+    /**
+     * Updates the operational status of the hardware.
+     *
+     * @param status New status to set (e.g., "active", "offline")
+     */
     public void setStatus(String status) {
         this.status = status;
     }
 
+    /**
+     * Updates the lastChecked timestamp to the current time.
+     */
     public void updateLastChecked() {
         this.lastChecked = LocalDateTime.now();
     }
 
-    // Record event - basic
+    /**
+     * Logs a system event related to this hardware without a user ID.
+     *
+     * @param eventDetails Description of the event
+     * @param eventType    Type of event (INFO, WARNING, ERROR, etc.)
+     */
     public void recordEvent(String eventDetails, String eventType) {
         SystemLog.recordEvent(eventDetails, eventType, null, this.deviceID);
     }
 
-    // Record event - with user
+    /**
+     * Logs a system event related to this hardware with an associated user ID.
+     *
+     * @param eventDetails Description of the event
+     * @param eventType    Type of event (INFO, WARNING, ERROR, etc.)
+     * @param userID       ID of the user associated with the event
+     */
     public void recordEvent(String eventDetails, String eventType, String userID) {
         SystemLog.recordEvent(eventDetails, eventType, userID, this.deviceID);
     }
 
-    // Perform health check and log status
+    /**
+     * Performs a health check on the hardware.
+     * - Updates the lastChecked time.
+     * - Logs a WARNING if a critical device is offline.
+     * - Logs INFO for non-critical devices or devices that are online.
+     */
     public void performHealthCheck() {
         updateLastChecked();
 
@@ -80,7 +128,11 @@ public class Hardware {
         }
     }
 
-    // ToString method
+    /**
+     * Returns a string representation of the Hardware object.
+     *
+     * @return formatted string with device information
+     */
     @Override
     public String toString() {
         return "Hardware{" +
@@ -93,6 +145,7 @@ public class Hardware {
                 '}';
     }
 }
+
 
 //Example of driver
 /*

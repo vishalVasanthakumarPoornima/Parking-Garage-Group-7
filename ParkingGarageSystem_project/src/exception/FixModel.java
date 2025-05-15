@@ -3,6 +3,9 @@ import java.io.File;
 
 
 public class FixModel {
+	// helper class associated with Model package
+	// and provides usage for ParkingExceptions
+	// 
 	
 	// FixModel - helper class via package model
 	public FixModel() {}
@@ -26,21 +29,35 @@ public class FixModel {
 		return (numAvailable > 0);
 	}
 	
-    public static void validateZipCode(int zipCode) throws IllegalArgumentException {
+    public static void validateZipCode(int zipCode) throws ParkingExceptions {
     	// continue for ParkingGarage
         String zipCodeStr = String.valueOf(zipCode);
 
         if (zipCodeStr.length() != 5) {
-            throw new IllegalArgumentException("ZIP code must be 5 digits.");
+            throw new ParkingExceptions("ZIP code must be 5 digits.");
         }
 
         try {
             Integer.parseInt(zipCodeStr);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("ZIP code must contain only digits.", e);
+            throw new ParkingExceptions("ZIP code must contain only digits.");
         }
     }
 
+    public static boolean isValidZipCode(String zipCode) {
+    	// isValidZipCode : return true if length of integer string is exactly 5
+        if (zipCode.length() != 5) 
+        	return false;
+        return true;
+     
+    }
+    
+    public static boolean isValidStateCode(String stateCode) {
+    	// isValidStateCode : return true if length of integer string is exactly 2
+        return (stateCode.length() == 2);
+    }
    
+    
 
 }
+

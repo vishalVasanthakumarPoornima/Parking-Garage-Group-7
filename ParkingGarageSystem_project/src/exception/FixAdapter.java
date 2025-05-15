@@ -5,6 +5,9 @@ import personel.AccessEmployeeControl;
 import personel.Admin;
 
 public class FixAdapter {
+	// helper class associated with Adapter package
+	// and provides usage for ParkingExceptions
+	// 
 	
 	
 	

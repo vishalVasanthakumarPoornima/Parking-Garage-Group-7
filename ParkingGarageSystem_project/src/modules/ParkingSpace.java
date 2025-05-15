@@ -20,6 +20,8 @@ public class ParkingSpace  implements Serializable{
 	private int space_number; 
 	private boolean isOccupied;
 	
+	
+	// Constructor
 	public ParkingSpace(int space_number) {
 		
 		this.id = ++count;  //
@@ -27,13 +29,18 @@ public class ParkingSpace  implements Serializable{
 		this.isOccupied = false;
 	}
 
+	
+	
+	// Getters
 	public int getId() { return id; }
 
- 
 	public int getCount() { return count; }
 
 	public int getSpace_number() { return space_number; }
 
+	
+	
+	// Setters
 	public void setSpace_number(int space_number) throws ParkingExceptions {
 		// keep if not setting equal to count
 		if (!FixModel.isValidInteger(space_number))
@@ -41,13 +48,17 @@ public class ParkingSpace  implements Serializable{
 		this.space_number = space_number;
 	}
 
-	public boolean isOccupied() {
-		// terminology check space being used
-		return isOccupied == true;
-	}
-
 	public void setOccupiedSpace() { this.isOccupied = true; }
 	public void setFreeSpace() { this.isOccupied = false; }
+	
+	
+	
+	//
+	public boolean isOccupied() {
+		// Boolean check space if being occupied
+		return isOccupied == true;
+	}
+	
 	
 	@Override
 	public String toString() {
@@ -57,6 +68,9 @@ public class ParkingSpace  implements Serializable{
 	}
 	@Override
 	public boolean equals(Object otherSpace) {
+		// Override object functinality when comparing
+		// to another object
+		
 		
 		if (otherSpace == this)
 			return true;
@@ -64,7 +78,6 @@ public class ParkingSpace  implements Serializable{
 			return false;
 		
 		ParkingSpace other_space = (ParkingSpace) otherSpace;
-		
 		return Integer.compare(this.id, other_space.id) == 0
 				&& Integer.compare(this.space_number, other_space.space_number) == 0 ;
 	}
